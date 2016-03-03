@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @author guomumin <aaron8573@gmail.com>
+ *
+ */
 namespace Aaron;
 /**
  * 主要公共方法在这里

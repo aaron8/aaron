@@ -1,7 +1,12 @@
 <?php
+/**
+ *
+ * @author guomumin <aaron8573@gmail.com>
+ *
+ */
 namespace Aaron;
 
-class Exceptions extends Exception
+class Exceptions extends \Exception
 {
     
     public function __construct($message = null, $code = 0)

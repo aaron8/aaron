@@ -1,13 +1,14 @@
 <?php
+/**
+ * 数据库模型
+ * @author guomumin <aaron8573@gmail.com>
+ * 
+ */
 namespace Aaron\Core;
 
 use Aaron;
 use Aaron\Application;
-/**
- * 数据库模型
- * @author guomumin
- * 
- */
+
 class Model
 {
     /**

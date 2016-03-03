@@ -1,11 +1,12 @@
 <?php
-namespace Aaron\Core;
-
 /**
  * url解析类
- * @author Administrator
+ * @author guomumin <aaron8573@gmail.com>
  * 参数暂时未进行过滤
  */
+namespace Aaron\Core;
+
+
 class Route
 {
     /**
