@@ -18,7 +18,8 @@ class View
         $this->templateName = $templateName; 
         $this->data = $data; 
         $this->fetch(); 
-    } 
+    }
+    
     /** 
      * 加载模板文件 
      * @access      public 
@@ -50,34 +51,6 @@ class View
         $this->outPut();
     }
     
-    /**
-     * 加载控制器
-     * @param string 类名/方法名 $path
-     * @param string 
-     */
-    /*
-    protected function load($path, $params=''){
-        if (!$path) trigger_error('加载'.$path.'控制器不存在');
-        
-        $path_arr = explode('/', $path);
-        $paramStr = '';
-        
-        if ($params != ''){
-            if (stripos($params, '/') !== FALSE){
-                $paramStr = str_replace('/', ',', $params);
-            } 
-            $paramStr = $params;
-        }
-        
-        $urlArray = array(
-            'controller'=> $path_arr[0],
-            'action'    => $path_arr[1],
-            'params'	=> $paramStr
-        );
-        Application::routeToCm($urlArray);
-        
-    }
-    */
     /** 
      * 输出模板 
      * @access      public  

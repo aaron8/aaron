@@ -157,10 +157,10 @@ class Mysqli
         return $rs;
     }
     
-    public function resultRowArray($sql, $result_type = MYSQL_ASSOC)
+    public function resultRowArray($sql)
     {
         $result = $this->query($sql);
-        $rs = mysqli_fetch_row($result, $result_type);
+        $rs = mysqli_fetch_row($result);
         mysqli_free_result($result);
         return $rs;
     }

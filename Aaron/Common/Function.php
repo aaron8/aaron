@@ -1,14 +1,10 @@
 <?php
+namespace Aaron;
 /**
- *
+ * 公共方法
  * @author guomumin <aaron8573@gmail.com>
  *
  */
-namespace Aaron;
-/**
- * 主要公共方法在这里
- */
-
 /**
  * 首字母绝对大写
  * @param string $str
@@ -144,6 +140,56 @@ function isPost() {
 }
 
 /**
+ * 是否用户名
+ * @param String $username
+ * @return boolean
+ */
+function isUserName($userName = '')
+{
+    return preg_match("/^[\d|\w|_]{5,25}$/", $userName);
+}
+
+/**
+ * 是否合规密码
+ * @param string $password
+ * @return boolean
+ */
+function isPassword($password = '')
+{
+    return preg_match("/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,25}$/", $password);
+}
+
+/**
+ * 是否手机号
+ * @param unknown $phone
+ * @return boolean
+ */
+function isMobile($phone = '')
+{
+    return preg_match("/^1[3|4|5|7|8][0-9]\d{8}$/", $phone);
+}
+
+/**
+ * 是否中文
+ * @param string $str
+ */
+function isChinese($str = '')
+{
+    return preg_match("/[\x80-\xff]+/",$str);
+}
+
+/**
+ * 是否邮箱
+ * @param email地址 $str
+ * @return number
+ */
+function isEmail($str = '')
+{
+    return preg_match("/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i",$str);
+}
+
+
+/**
  * 加载模型
  * @param unknown $model
  * @return unknown
@@ -222,17 +268,12 @@ function redirect($uri = '')
         $uri = '/';
     }elseif (stripos($uri, 'http://') !== FALSE) {
         
-    }elseif (!stripos($uri, Application::$module)) {
-        $uri = '/'. Application::$module. '/'. $uri;
+    }elseif (stripos($uri, Application::$module) === FALSE) {
+        $uri = '/'.strtolower(Application::$module).'/'.$uri;
     }else{
         $uri = '/'. $uri;
     }
     
     header("Location:$uri");
     exit();
-}
-
-function is_login($key = NULL, $module = '')
-{
-    
 }

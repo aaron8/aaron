@@ -16,6 +16,10 @@ final class Application
     
     static public $module = null;
     
+    static public $controller = null;
+    
+    static public $function = null;
+    
     static public function run()
     {
         //加载配置文件
@@ -24,8 +28,14 @@ final class Application
         //加载核心文件
         self::coreLoad();
         
+        self::setMoCoFu();
+        
+        self::loadBase();
+        
         //路由解析
         self::routeParse();
+        
+        
         
     }
     
@@ -68,6 +78,23 @@ final class Application
                 require_once $file;
             }
         }
+        
+    }
+    
+    /**
+     * 设置默认当前访问的module、controller、function
+     */
+    static private function setMoCoFu()
+    {
+        $route = new Route(self::$config['route']);
+        
+        $route->parseUrl();
+        
+        self::$controller = ucfirstStr($route->controller);
+        
+        self::$function = ucfirstStr($route->function);
+        
+        self::$module = ucfirstStr($route->module);
     }
     
     /**
@@ -75,27 +102,29 @@ final class Application
      */
     static private function routeParse()
     {
-        $route = new Route(self::$config['route']);
+        $function = self::$function;
         
-        $route->parseUrl();
-        
-        $controller = ucfirstStr($route->controller);
-        
-        $function = ucfirstStr($route->function);
-        
-        self::$module = ucfirstStr($route->module);
-        
-        $file = APP_PATH . self::$module .'/Controller/'. $controller .'.php';
+        $file = APP_PATH . self::$module .'/Controller/'. self::$controller .'.php';
         
         if (!is_file($file)) exit(trigger_error('文件不存在:'. $file, E_USER_ERROR));
         
         require_once $file;
         
-        $class_name = '\\'. self::$namespace .'\\'.$controller;
+        $class_name = '\\'. self::$namespace .'\\'.self::$controller;
         
         $class = new $class_name();
         
         return $class->$function();
+    }
+    
+    /**
+     * 加载基类
+     */
+    static private function loadBase()
+    {
+        $base_file = APP_PATH.Application::$module.'/Controller/Base.php';
+        
+        if (is_file($base_file)) require_once $base_file;
     }
     
 }
