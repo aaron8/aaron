@@ -261,11 +261,11 @@ function loadService($service, $options = [])
  * url跳转
  * @param string $uri
  */
-function redirect($uri = '')
+function redirect($uri = NULL)
 {
-    if (empty($uri))
+    if (is_null($uri))
     {
-        $uri = '/';
+        $uri = '/'. Application::$module;
     }elseif (stripos($uri, 'http://') !== FALSE) {
         
     }elseif (stripos($uri, Application::$module) === FALSE) {
@@ -276,4 +276,22 @@ function redirect($uri = '')
     
     header("Location:$uri");
     exit();
+}
+
+/**
+ * 在当前module下获取链接地址
+ * @param string $uri
+ * @return string
+ */
+function returnUrl($uri = NULL)
+{
+    if (is_null($uri)) return '/'. strtolower(Application::$module);
+    
+    if(preg_match("/".strtolower(Application::$module)."\/(.*)/", $uri))
+    {
+        return $uri;
+    }
+    
+    return '/'.strtolower(Application::$module).'/'.$uri;
+    
 }

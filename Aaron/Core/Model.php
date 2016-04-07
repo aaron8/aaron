@@ -65,7 +65,7 @@ class Model
      */
     public function table($table = null)
     {
-        if (is_null($table)) $table = $this->table;
+        if (empty($table)) $table = $this->table;
     
         $this->param['table'] = empty($table) ? '' : ($this->db_config['prefix'].$table);
     
@@ -78,9 +78,9 @@ class Model
      * @param array $operation where条件中符号，默认=
      * @return \Aaron\Core\Model
      */
-    public function where($where = null, $operation = [])
+    public function where($where = NULL, $operation = [])
     {
-        if (!is_null($where))
+        if (!empty($where))
         {
             if (is_array($where))
             {
@@ -118,7 +118,7 @@ class Model
      */
     public function orWhere($where = null, $operation = [])
     {
-        if (!is_null($where))
+        if (!empty($where))
         {
             if (is_array($where))
             {
@@ -155,7 +155,7 @@ class Model
      */
     public function limit($limit = null)
     {
-        if (!is_null($limit))
+        if (!empty($limit))
         {
             $this->param['limit'] = ' LIMIT '. $limit;
         }
@@ -169,6 +169,8 @@ class Model
      */
     public function lists($filed = '*')
     {
+        if (is_array($filed)) $filed = implode(',', $filed);
+        
         $sql = $this->getSql($filed);
         return $this->db->resultListArray($sql);
     }
@@ -260,7 +262,7 @@ class Model
      */
     public function joinOn($join = [], $join_type = 'LEFT')
     {
-        if (!is_null($join))
+        if (!empty($join))
         {
             foreach ($join as $table=>$v)
             {
@@ -278,7 +280,7 @@ class Model
      */
     public function orderBy($filed = NULL)
     {
-        if (!is_null($filed))
+        if (!empty($filed))
         {
             $this->param['order_by'] = ' ORDER BY ';
             if (is_array($filed))
@@ -292,7 +294,7 @@ class Model
                     $i++;
                 }
             }else{
-                $this->param['order_by'] = $filed;
+                $this->param['order_by'] .= $filed;
             }
         }
         
@@ -307,7 +309,7 @@ class Model
      */
     public function groupBy($filed = NULL)
     {
-        if (!is_null($filed))
+        if (!empty($filed))
         {
             $this->param['group_by'] = ' GROUP BY ';
             if (is_array($filed))
@@ -337,7 +339,7 @@ class Model
      */
     public function having($having = [], $operation = [])
     {
-        if (!is_null($having))
+        if (!empty($having))
         {
             $this->param['having'] = ' HAVING ';
             $i = 0;
