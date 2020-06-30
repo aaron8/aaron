@@ -14,6 +14,4 @@ Aaron 系统目录
 App web站点目录 index.php 入口文件，可以位安全考虑，修改SYSTEM_PATH,APP_PATH常量 可把这个文件放到任意位置 
 采取多模块化，公共model、service模式运作
 
-qq:327909724
-
 目前仍处于完善中...
